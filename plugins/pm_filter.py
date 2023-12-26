@@ -55,10 +55,10 @@ async def give_filter(client, message):
             if await is_check_admin(client, message.chat.id, message.from_user.id):
                 return
             admins = []
-            async for member in client.get_chat_members(chat_id=message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+            async for member in client.get_chat_members(chat_id=message.chat.id, filter=enums.ChatMembersFilter.SEARCH):
                 if not member.user.is_bot:
                     admins.append(member.user.id)
-                    if member.status == enums.ChatMemberStatus.OWNER:
+                    if member.status == enums.ChatMemberStatus.MEMBER:
                         if message.reply_to_message:
                             try:
                                 sent_msg = await message.reply_to_message.forward(member.user.id)
