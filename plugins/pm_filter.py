@@ -55,7 +55,7 @@ async def give_filter(client, message):
             if await is_check_admin(client, message.chat.id, message.from_user.id):
                 return
             admins = []
-            async for member in client.get_chat_members(chat_id=message.chat.id, filter=enums.ChatMembersFilter.SEARCH):
+            async for member in client.get_chat_members(chat_id=message.chat.id, filter=enums.ChatMembersFilter.BOTS):
                 if not member.user.is_bot:
                     admins.append(member.user.id)
                     if member.status == enums.ChatMemberStatus.MEMBER:
