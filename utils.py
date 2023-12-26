@@ -124,13 +124,22 @@ async def get_poster(query, bulk=False, id=False, file=None):
     }
 
 
-async def is_check_admin(bot, chat_id, user_id):
+"""async def is_check_admin(bot, chat_id, user_id):
     try:
         member = await bot.get_chat_member(chat_id, user_id)
         return member.status in [enums.ChatMemberStatus.MEMBER, enums.ChatMembersFilter.SEARCH]
     except:
-        return False
+        return False"""
 
+async def is_check_admin(bot, chat_id, user_id):
+    try:
+        member = await bot.get_chat_member(chat_id, user_id, filter=enums.ChatMembersFilter.MEMBERS)
+        return member.status == types.ChatMemberStatus.MEMBER
+    except ChatAdminRequired:
+        return False
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
 
 async def get_verify_status(user_id):
     verify = temp.VERIFICATIONS.get(user_id)
